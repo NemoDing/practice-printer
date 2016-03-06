@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+  </head>
+  <body>
+	
+	<script type="text/javascript" src="./app/js/ProductPrivilegeSetting.js"></script>
+	<script type="text/javascript" src="./app/js/Product.js"></script>
+	<script type="text/javascript" src="./app/js/Privilege.js"></script>
+	<script type="text/javascript" src="./app/js/Printer.js"></script>
+	
+	<script type="text/javascript">
+		'use strict';
+		
+		//Dummy data of the product JSON input
+		var input = ['ITEM000001',
+					 'ITEM000001',
+					 'ITEM000001',
+					 'ITEM000001',
+					 'ITEM000001',
+					 'ITEM000003-2',
+					 'ITEM000005',
+					 'ITEM000005',
+					 'ITEM000005'];
+
+		//init privilegeSettings			 
+		var privilegeSettings = [];
+
+		// case 1 - 买二赠一
+		var discount95 = new ProductPrivilegeSetting('95折');
+		var threeForTwo = new ProductPrivilegeSetting('买二赠一', ['ITEM000005']);
+
+		privilegeSettings.push(discount95, threeForTwo);			 
+
+		console.log("## case 1 - 买二赠一 ##############################");
+		var printer = new Printer();
+		printer.privilegeSettings = privilegeSettings;
+		printer.print(input);
+		
+
+		console.log("## case 2 - no privilege ##############################");
+		threeForTwo.products.length = 0;
+		printer.print(input);
+
+
+		console.log("## case 3 - 95折 ##############################");
+		discount95.products.push('ITEM000003');
+		printer.print(input);
+
+		console.log("## case 4 - 95折 & 买二赠一 for different product ##############################");
+		threeForTwo.products.push('ITEM000005');
+		printer.print(input);
+
+
+		console.log("## case 5 - 95折 & 买二赠一 for same product ##############################");
+		discount95.products[0] = 'ITEM000005';
+		threeForTwo.products.push('ITEM000005');
+		printer.print(input);
+
+	</script>
+	
+  </body>
+</html>

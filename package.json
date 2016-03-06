@@ -1,0 +1,8 @@
+{
+  "name": "Homework",
+  "version": "0.1.0",
+  "description": "",
+  "devDependencies": {
+    "intern": "~2.2.2"
+  }
+}
